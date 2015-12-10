@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "pipewrench"
+
+puts Pipewrench::Shell.new($stdin).run(ARGV.join(" "))
