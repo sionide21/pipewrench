@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
 require "pipewrench"
 
-puts Pipewrench::Shell.new($stdin).run(ARGV.join(" "))
+options = Pipewrench::Options.new.parse!
+puts Pipewrench.new($stdin, options).run(ARGV.join(" ")) || []
