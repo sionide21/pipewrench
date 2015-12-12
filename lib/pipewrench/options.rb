@@ -26,7 +26,7 @@ class Pipewrench
 
     def parser
       @parser ||= OptionParser.new do |opts|
-        opts.banner = "Usage: pipewrench [options] expression"
+        opts.banner = "Usage: pipewrench [options] expression [file ...]"
 
         opts.on("-c", "--compact", "Remove nil lines from output") do |m|
           @compact = true

@@ -12,7 +12,7 @@ General purpose command line pipe processing tool.
 ## Usage
 
 ```
-Usage: pipewrench [options] expression
+Usage: pipewrench [options] expression [file ...]
     -c, --compact                    Remove nil lines from output
     -m, --map                        Run each line through the expression
     -r, --rails                      Load Active Support Core Extensions
@@ -21,7 +21,7 @@ Usage: pipewrench [options] expression
         --version                    Show version
 ```
 
-Pipewrench evaluates the given expression against standard input.
+Pipewrench evaluates the given expression against the specified files (or standard input if no files are given).
 This allows you to write powerful ruby expressions as part of your pipeline.
 
 Here are some examples:
@@ -36,6 +36,11 @@ $ echo "My Cat" >> pipewrench.txt
 $ echo "His Dog" >> pipewrench.txt
 $ echo "Her Fish" >> pipewrench.txt
 $ echo "My Frog" >> pipewrench.txt
+$ pipewrench 'grep(/^My (\w+)/) {$1}' pipewrench.txt
+Cat
+Frog
+
+# Or, from standard in
 $ cat pipewrench.txt | pipewrench 'grep(/^My (\w+)/) {$1}'
 Cat
 Frog
@@ -47,7 +52,7 @@ Evaluate the expression for each line of input.
 
 ```
 # Convert input to upper case
-$ cat pipewrench.txt | pipewrench -m upcase
+$ pipewrench -m upcase pipewrench.txt
 MY CAT
 HIS DOG
 HER FISH

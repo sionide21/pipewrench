@@ -2,4 +2,5 @@
 require "pipewrench"
 
 options = Pipewrench::Options.new.parse!
-puts Pipewrench.new($stdin, options).run(ARGV.join(" ")) || []
+command = ARGV.shift
+puts Pipewrench.new(ARGF, options).run(command) || []
