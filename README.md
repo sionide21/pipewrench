@@ -12,15 +12,16 @@ General purpose command line pipe processing tool.
 ## Usage
 
 ```
-Usage: pipewrench [options] expression
+Usage: pipewrench [options] expression [file ...]
     -c, --compact                    Remove nil lines from output
     -m, --map                        Run each line through the expression
+    -r, --rails                      Load Active Support Core Extensions
     -s, --strip                      Strip trailing whitespace from each line before running
     -h, --help                       Show this message
         --version                    Show version
 ```
 
-Pipewrench evaluates the given expression against standard input.
+Pipewrench evaluates the given expression against the specified files (or standard input if no files are given).
 This allows you to write powerful ruby expressions as part of your pipeline.
 
 Here are some examples:
@@ -35,6 +36,11 @@ $ echo "My Cat" >> pipewrench.txt
 $ echo "His Dog" >> pipewrench.txt
 $ echo "Her Fish" >> pipewrench.txt
 $ echo "My Frog" >> pipewrench.txt
+$ pipewrench 'grep(/^My (\w+)/) {$1}' pipewrench.txt
+Cat
+Frog
+
+# Or, from standard in
 $ cat pipewrench.txt | pipewrench 'grep(/^My (\w+)/) {$1}'
 Cat
 Frog
@@ -46,7 +52,7 @@ Evaluate the expression for each line of input.
 
 ```
 # Convert input to upper case
-$ cat pipewrench.txt | pipewrench -m upcase
+$ pipewrench -m upcase pipewrench.txt
 MY CAT
 HIS DOG
 HER FISH
@@ -64,6 +70,16 @@ $ seq 1 10 | pipewrench -c -m 'self if to_i < 5'
 2
 3
 4
+```
+
+### -r, --rails
+
+Load [Active Support Core Extensions](http://guides.rubyonrails.org/active_support_core_extensions.html). This gives you access to rails helper methods.
+
+```
+# Convert numbers to human readable sizes
+$ echo 100000000 | pipewrench -mr 'to_i.to_s(:human_size)'
+95.4 MB
 ```
 
 ### -s, --strip
