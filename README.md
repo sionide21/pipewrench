@@ -8,7 +8,70 @@ General purpose command line pipe processing tool.
 
 ## Usage
 
-*Coming soon...*
+```
+Usage: pipewrench [options] expression
+    -c, --compact                    Remove nil lines from output
+    -m, --map                        Run each line through the expression
+    -s, --strip                      Strip trailing whitespace from each line before running
+    -h, --help                       Show this message
+        --version                    Show version
+```
+
+Pipewrench evaluates the given expression against standard input.
+This allows you to write powerful ruby expressions as part of your pipeline.
+
+Here are some examples:
+
+```
+# Given a list of integers, add them up
+$ seq 1 10 | pipewrench 'map(&:to_i).inject(:+)'
+55
+
+# Extract regex from matching lines
+$ echo "My Cat" >> pipewrench.txt
+$ echo "His Dog" >> pipewrench.txt
+$ echo "Her Fish" >> pipewrench.txt
+$ echo "My Frog" >> pipewrench.txt
+$ cat pipewrench.txt | pipewrench 'grep(/^My (\w+)/) {$1}'
+Cat
+Frog
+```
+
+### -m, --map
+
+Evaluate the expression for each line of input.
+
+```
+# Convert input to upper case
+$ cat pipewrench.txt | pipewrench -m upcase
+MY CAT
+HIS DOG
+HER FISH
+MY FROG
+```
+
+### -c, --compact
+
+Remove nils from the output. This is primarily useful in conjunction with `--map` but can be used on its own as well.
+
+```
+# Only show lines less than 5
+$ seq 1 10 | pipewrench -c -m 'self if to_i < 5'
+1
+2
+3
+4
+```
+
+### -s, --strip
+
+Remove trailing whitespace from each line before evaluating the expression.
+
+```
+# Join a list of numbers as a comma separated list
+$ seq 1 10 | pipewrench -s 'join(", ")'
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+```
 
 ## Development
 
