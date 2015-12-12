@@ -3,7 +3,7 @@ require "pipewrench/version"
 
 class Pipewrench
   class Options
-    attr_reader :map, :strip, :compact
+    attr_reader :map, :strip, :compact, :rails
 
     def parse!(*args)
       parser.parse!(*args)
@@ -34,6 +34,10 @@ class Pipewrench
 
         opts.on("-m", "--map", "Run each line through the expression") do |m|
           @map = true
+        end
+
+        opts.on("-r", "--rails", "Load Active Support Core Extensions") do |m|
+          @rails = true
         end
 
         opts.on("-s", "--strip", "Strip trailing whitespace from each line before running") do |m|

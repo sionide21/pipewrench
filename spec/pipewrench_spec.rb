@@ -37,4 +37,12 @@ describe Pipewrench do
       end
     end
   end
+
+  context "with --rails" do
+    let(:options) { OpenStruct.new(rails: true) }
+
+    it "adds active support methods" do
+      expect(Pipewrench.new("Hello\nWorld\n", options).run("second")).to eq("World\n")
+    end
+  end
 end

@@ -25,4 +25,8 @@ describe "Examples" do
   it "joins a list of numbers as a comma separated list" do
     expect(run("seq 1 10 | pipewrench -s 'join(\", \")'")).to eq("1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n")
   end
+
+  it "converts numbers to human readable sizes" do
+    expect(run("echo 100000000 | pipewrench -mr 'to_i.to_s(:human_size)'")).to eq("95.4 MB\n")
+  end
 end

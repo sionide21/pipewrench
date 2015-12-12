@@ -8,6 +8,11 @@ class Pipewrench
   def initialize(stdin, options=Options.new)
     @stdin = stdin
     @options = options
+
+    if options.rails
+      require 'active_support'
+      require 'active_support/core_ext'
+    end
   end
 
   def run(cmd)

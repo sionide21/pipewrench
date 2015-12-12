@@ -66,6 +66,16 @@ $ seq 1 10 | pipewrench -c -m 'self if to_i < 5'
 4
 ```
 
+### -r, --rails
+
+Load [Active Support Core Extensions](http://guides.rubyonrails.org/active_support_core_extensions.html). This gives you access to rails helper methods.
+
+```
+# Convert numbers to human readable sizes
+$ echo 100000000 | pipewrench -mr 'to_i.to_s(:human_size)'
+95.4 MB
+```
+
 ### -s, --strip
 
 Remove trailing whitespace from each line before evaluating the expression.

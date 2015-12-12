@@ -38,4 +38,12 @@ describe Pipewrench::Options do
     expect(options.compact).to be_falsey
     expect(options.strip).to be_truthy
   end
+
+  it "sets rails" do
+    argv = ["-r", "test"]
+    options.parse!(argv)
+    expect(options.map).to be_falsey
+    expect(options.compact).to be_falsey
+    expect(options.rails).to be_truthy
+  end
 end
