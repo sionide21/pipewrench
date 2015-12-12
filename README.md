@@ -1,5 +1,8 @@
 # Pipewrench
 
+[![Gem Version](https://badge.fury.io/rb/pipewrench.svg)](https://badge.fury.io/rb/pipewrench)
+[![Build Status](https://travis-ci.org/sionide21/pipewrench.svg?branch=master)](https://travis-ci.org/sionide21/pipewrench)
+
 General purpose command line pipe processing tool.
 
 ## Installation
