@@ -15,6 +15,7 @@ General purpose command line pipe processing tool.
 Usage: pipewrench [options] expression
     -c, --compact                    Remove nil lines from output
     -m, --map                        Run each line through the expression
+    -r, --rails                      Load Active Support Core Extensions
     -s, --strip                      Strip trailing whitespace from each line before running
     -h, --help                       Show this message
         --version                    Show version
