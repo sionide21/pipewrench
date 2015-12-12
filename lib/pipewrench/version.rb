@@ -1,3 +1,3 @@
-module Pipewrench
-  VERSION = "0.1.0"
+class Pipewrench
+  VERSION = "0.2.0"
 end
